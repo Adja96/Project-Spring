@@ -1,0 +1,43 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    password:
+    url: jdbc:mysql://localhost:3306/springApp_db?createDatabaseIfNotExist=true&useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+  application:
+    name: spring-app
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,wavefront
+  info:
+    env:
+      enabled: true
+
+  endpoint:
+    health:
+      show-details: ALWAYS
+
+info:
+  application:
+    name: spring-app
+    version: '@project.version@'
+
+
+#logging:
+  #level:
+    #org:
+      #springframework:
+        #web: DEBUG
+  #file:
+    #name: /Users/macbookair/Documents/IJProjects/2022/Spring/2022/coaching/bank-credit-master/logs/mylog.log
+

@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  mysql-spring-db:
+    image: mysql:8.0
+    container_name: container_mysql_spring-app
+    environment:
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_DATABASE: springApp_db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u $$MYSQL_USER --password=$$MYSQL_PASSWORD
+
+  phpmyadmin-db:
+    container_name: container_phpmyadmin-springdb
+    image: phpmyadmin/phpmyadmin:latest
+    ports:
+      - 8085:80
+    environment:
+      MYSQL_ROOT_PASSWORD: 
+      PMA_HOST: mysql-spring-db
+      PMA_USER: root
+      PMA_PASSWORD: 
+    depends_on:
+      - mysql-spring-db
+    restart: unless-stopped
+
+
+volumes:
+  mysql_data:
+    driver: local
